@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="/public/images/android-icon-96x96.png">
+    <title>ระบบควบคุมฟาร์มไก่</title>
+    <!-- เพิ่มเติม-------------------------------- -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/style2.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="/public/js/script.js"></script>
+    <!-- <link rel="stylesheet" href="/public/axios-0.19.2/dist/axios.min.js">       -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="/public/axios-0.19.2/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+
+    <div class="wrapper">
+        <div class="sidebar" id="mysidebar">
+            <h2><%= user %></h2>
+            <a class="nav-link active" href="/index"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a class="nav-link " href="/index/adduser"><i class="fas fa-user"></i>เพิ่มผู้ใช้งาน</a>
+            <a class="nav-link " href="/index/member"><i class="fas fa-id-badge"></i>ชื่อผู้ใช้งาน</a>
+            <a class="nav-link " href="/index/addhouse"><i class="fas fa-home"></i>โรงเรือนในระบบ</a>
+            <a class="nav-link " href="/logout" onclick="sessionStorage.clear()"><i
+                    class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunctionTab()"><i class="fa fa-bars"></i> </a>
+
+
+        </div>
+
+
+        <div class="main_content">
+            <div class="container-fluid">
+
+                <h2>Dashboard</h2>
+
+
+                <% numhouse.forEach(function(house_num,num){ %>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="text-align: center;"><%= house_num.house_quntity %></div>
+                            <input type="hidden" name="" id="housecareuser" value="<%= house_num.house_quntity %>">
+                            <!-- <input type="text" name="houseid[]" id="houseid" value="<%= house_num.id%>"> -->
+
+                            <!-- <div class="Chart1" id="chartContainer<%= house_num.topic %>" style="height: 370px; width: 100%;" >
+                            </div> -->
+                            <div class="panel-body" style="text-align: left;">
+                                <div class="row ">
+                                    <div class="Chart1" id="chartContainer<%= house_num.topic %>" style="height: 370; width: 50%;">
+                                    </div>
+                                    <div class="Chart2" id="humgraph<%= house_num.topic %>" style="height: 370; width: 50%;">
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="getidhouse" id="getidhouse"
+                                    value="<%= house_num.house_quntity %>">
+                                <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+                                <!-- แุถวที่1 ----------------------------------------------------------------------------------------------------------------------->
+
+                                <div class="row">
+                                    <!-- Setting-------------------------------------------------------------------------------------------------------->
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 ">
+
+                                        <div class="card0">
+                                            <div class="card-icon ">
+                                                <i class="image-setting"><img src="/public/images/cogwheel.png"
+                                                        width="100px" height="100px"></i>
+
+                                            </div>
+
+                                            <div class="Data1 ">
+                                                <p class="card-category" style="margin-top: 10px;">Setting</p>
+
+                                                <div class="list-group list-group-flush">
+
+                                                    <div class="list-group-item">
+                                                        <span class="on-off-setting">Manual</span>
+                                                        <label class="switch ">
+                                                            <!-- <input type="checkbox" class="Manual-Auto">           -->
+                                                            <input type="checkbox" class="Manual-Auto"
+                                                                name="onoffsystem" id="onoffsystem_<%= num+1 %>"
+                                                                onclick="status_system('<%= house_num.id %>',this.id)"
+                                                                <%= (house_num.status_system === "1") ? "checked" : ""  %>>
+                                                            <span class="slider2 round"></span>
+                                                        </label>
+                                                        <span class="on-off-setting">Auto</span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="btn-set">
+                                                <button class="btn btn-outline-primary" data-toggle="modal"
+                                                    data-target="#SetHeater" type="button"
+                                                    onclick="myFunction('<%=house_num.id %>')"
+                                                    <%= (house_num.status_system === "0") ? "disabled" : ""  %>> Set
+                                                    Temp</button>
+                                            </div>
+                                            <% if (house_num.status_system == 1) { %>
+                                            <!-- แสดงช่วง Temp -->
+                                            <div class="show-temp">
+                                                <span>เปิดเมื่ออุณหภูมิ : <%= house_num.temp %> </span>
+                                            </div>
+                                            <% } %>
+
+
+                                        </div>
+
+                                    </div>
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="SetHeater">
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Heater ตั้งค่าอุณหภูมิ</h4>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <form action="/users/gettemp" method="POST">
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <div class="col-6 offset-3">
+                                                            เปิดเมื่ออุณหภูมิ <input type="number"
+                                                                class="form-control text-right number-only" width="50px"
+                                                                name="settemp" id="settemp" min="27" max="35" value=""
+                                                                placeholder="กรุณากรอกเฉพาะตัวเลข">
+                                                            <input type="hidden" name="getidtemp" id="getidtemp">
+                                                            <!-- เก็บโรงเรือนที่เปลี่ยน -->
+                                                            <input type="hidden" name="gethousetemp" id="gethousetemp">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp; <font size=2>(ช่วงระหว่าง 27 - 35
+                                                                องศา)</font>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                            data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary">บันทึก</button>
+
+                                                    </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    </form>
+                                    <script>
+
+                                        function status_system(id, element_id) {
+                                            console.log(id);
+                                            $(document).ready(function () {
+                                                let switch_check = $("#" + element_id).is(":checked");
+                                                let status_switch = (switch_check === true) ? "1" : "0";
+
+
+                                                axios.post('http://' + res1[0] + ':3000/detailuser/switch_status_system', {
+                                                    id: id,
+                                                    status: status_switch
+
+                                                })
+                                                    .then(result => {
+                                                        console.log(result);
+                                                        if (result.data.message === "ok") {
+                                                            // alert("success");   
+                                                            location.reload();
+                                                        } else if (result.data.message === 'error') {
+                                                            alert("Error")
+                                                        }
+
+
+                                                    })
+                                            })
+                                        }
+
+                                    </script>
+                                    <!-- ----------------------------------------------------------------------------- -->
+
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 ">
+
+                                        <div class="card1">
+                                            <div class="card-icon ">
+                                                <i class="image-temperature"><img src="/public/images/temperature.ico"
+                                                        width="100px" height="100px"></i>
+
+                                            </div>
+
+                                            <div class="Data1 ">
+                                                <p class="card-category" style="margin-top: 10px;">temperature</p>
+                                                <h2 class="card-title" style="font-size: 35px;">
+                                                    <strong id="temperature<%= house_num.topic %>"></strong>
+                                                    <!-- <%=house_num.id %> -->
+                                                    <span>C</span>
+
+                                                </h2>
+                                            </div>
+
+                                            <div class="Tempcontrol row" style="text-align: center;">
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+                                        <div class="card1">
+                                            <div class="card-icon">
+                                                <i class="image-humidity"><img src="/public/images/humidity.png"
+                                                        width="100px" height="100px"></i>
+                                            </div>
+
+                                            <div class="Data1">
+                                                <p class="card-category" style="margin-top: 10px;">humidity</p>
+                                                <h2 class="card-title" style="font-size: 35px;">
+                                                    <strong id="humidity<%= house_num.topic %>"></strong>
+                                                    <!-- <%=house_num.id %> -->
+                                                    <span>%</span>
+                                                </h2>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <!--------------Heater---------Heater------Heater---------Heater------Heater---------Heater------Heater---------Heater------------------Heater-------------------Heater----------------------------------------------------------------  -->
+
+
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+
+                                        <div class="<%= (house_num.status_system == "0") ? "card2": "card22"%>">
+                                            <div class="card-icon">
+                                                <i class="image-humidity"><img src="/public/images/fire.png"
+                                                        width="50px" height="50px"></i>
+                                            </div>
+
+                                            <div class="Data">
+                                                <p class="card-category" style="margin-top: 10px;">Heater</p>
+
+                                                <div class="list-group list-group-flush">
+
+                                                    <div class="list-group-item">
+
+
+                                                        <% if (house_num.status_system == 0) { %>
+                                                        <span class="on-off">OFF</span>
+                                                        <label class="switch ">
+                                                            <input type="checkbox" class="primary" name="onoffheater"
+                                                                id="onoffheater_<%= num+1 %>"
+                                                                onclick="switch_heater('<%= house_num.id %>',this.id)"
+                                                                <%= (house_num.status_system === "1") ? "disabled" : ""  %>
+                                                                <%= (house_num.status_heater === "on") ? "checked" : ""  %>>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        <span class="on-off">ON</span>
+                                                        <div class="<%= (house_num.heaterres == "on"  && house_num.status_heater == "on") ? "led-green" : "led-red1" %>" id="ledheater<%=house_num.topic %>"></div> 
+                                                      <!--   <div class="led-red1" id="ledheater<%=house_num.topic %>"></div> -->
+                                                        <!-- <p class="" id="heater<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+                                                        <% }else{ %>
+                                                        <!-- กันหน้าร้น -->
+                                                        <!-- แบบเก่า -->
+                                                       <!--  <div class="led-red1" id="ledheater<%=house_num.topic %>"></div> -->
+                                                       <div class="<%= (house_num.heaterres == "on" /* && house_num.status_system == "1" */) ? "led-green" : "led-red1" %>" id="ledheater<%=house_num.topic %>"></div> 
+                                                      <!--   <p class="" id="heater<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+
+
+                                                        <%} %>
+
+
+                                                        <style>
+
+
+                                                        </style>
+                                                        <script
+                                                            src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+                                                        <script>
+
+                                                            var stringValue = document.URL;
+                                                            var res = stringValue.substr(7);
+                                                            var res1 = res.split(":");
+                                                            function switch_heater(id, element_id) {
+                                                                console.log(id);
+                                                                $(document).ready(function () {
+                                                                    let switch_check = $("#" + element_id).is(":checked");
+                                                                    let status_switch = (switch_check === true) ? "on" : "off";
+
+                                                                    axios.post('http://' + res1[0] + ':3000/detailuser/switch_heater', {
+                                                                        id: id,
+                                                                        status: status_switch
+                                                                    })
+                                                                        .then(result => {
+                                                                            console.log(result);
+                                                                            if (result.data.message === "ok") {
+                                                                                // alert("success");   
+                                                                                location.reload();
+                                                                            } else if (result.data.message === 'error') {
+                                                                                alert("Error")
+                                                                            }
+
+
+                                                                        })
+                                                                })
+                                                            }
+                                                                /* $(document).ready(function(){
+                                                        $("input:#onoffheater").change(function(e){
+                                                        console.log(e)
+                                                        if($('#onoffheater').is(':checked')){
+
+                                                            }
+                                                        })
+                                                    }) */
+
+
+                                                                // if(onoffheater === 'Y') {$(".mycheckbox").prop('checked',true)}
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- ----------------------Pump-----------------Pump-----------------Pump-----------------Pump------------------------Pump--------------Pump--------------------------------------------------- -->
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+                                        <div class="<%= (house_num.status_system == "0") ? "card" : "card11"%>">
+                                            <div class="card-icon">
+                                                <i class="image-fire"><img src="/public/images/pump.png" width="50px"
+                                                        height="50px"></i>
+                                            </div>
+
+                                            <div class="Data">
+                                                <p class="card-category" style="margin-top: 1  0px;">Pump</p>
+                                                <div class="list-group list-group-flush">
+
+                                                    <div class="list-group-item">
+                                                        <% if (house_num.status_system == 0) { %>
+
+                                                        <span class="on-off">OFF</span>
+                                                        <label class="switch ">
+                                                            <input type="checkbox" class="primary" name="onoffpump"
+                                                                id="onoffpump_<%= num+1 %>"
+                                                                onclick="switch_pump('<%= house_num.id %>',this.id)"
+                                                                <%= (house_num.status_system === "1") ? "disabled" : ""  %>
+                                                                <%= (house_num.status_pump === "on" ) ? "checked" : ""  %>>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        <span class="on-off">ON</span>
+                                                        <div class="<%= (house_num.pumpres == "on" && house_num.status_pump == "on" && house_num.status_system == "0" ) ? "led-green" : "led-red1" %>" id="ledpump<%=house_num.topic %>"></div> 
+                                                        <!-- <div class="led-red1" id="ledpump<%=house_num.topic %>"></div> -->
+                                                        <!-- <p class="" id="pump<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+                                                        <% }else{ %>
+                                                            <div class="<%= (house_num.pumpres == "on" && house_num.status_system == "1") ? "led-green" : "led-red1" %>" id="ledpump<%=house_num.topic %>"></div> 
+                                                    <!--     <div class="led-red1" id="ledpump<%=house_num.topic %>"></div> -->
+                                                       <!--  <p class="" id="pump<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+
+                                                        <%} %>
+
+                                                        <script
+                                                            src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+                                                        <script>
+                                                            function switch_pump(id, element_id) {
+                                                                console.log(id);
+                                                                $(document).ready(function () {
+                                                                    let switch_check = $("#" + element_id).is(":checked");
+                                                                    let status_switch = (switch_check === true) ? "on" : "off";
+                                                                    // console.log();
+
+                                                                    axios.post('http://' + res1[0] + ':3000/detailuser/switch_pump', {
+                                                                        id: id,
+                                                                        status: status_switch
+                                                                    })
+                                                                        .then(result => {
+                                                                            console.log(result);
+                                                                            if (result.data.message === "ok") {
+                                                                                // alert("success");
+                                                                                location.reload();
+                                                                            } else if (result.data.message === 'error') {
+                                                                                alert("Error")
+                                                                            }
+                                                                        })
+                                                                })
+                                                            }
+                                                                /* $(document).ready(function(){
+                                                        $("input:#onoffheater").change(function(e){
+                                                        console.log(e)
+                                                        if($('#onoffheater').is(':checked')){
+
+                                                            }
+                                                        })
+                                                    }) */
+
+
+                                                                // if(onoffheater === 'Y') {$(".mycheckbox").prop('checked',true)}
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <form action="/users/getpump" method="POST">
+                                        <!-- The Modal -->
+                                        <div class="modal fade" id="SetPump">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">ตั้งค่า Pump</h4>
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- //Modal body -->
+                                                    <div class="modal-body row">
+
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body row">
+                                                            <div class="col-6 offset-3">
+                                                                เปิดเมื่ออุณหภูมิ <input type="text"
+                                                                    class="form-control text-right number-only"
+                                                                    width="50px" name="setpump" id="setpump" value=""
+                                                                    placeholder="กรุณากรอกเฉพาะตัวเลข">
+                                                                <input type="hidden" name="getidpump" id="getidpump">
+                                                                <!-- เก็บโรงเรือนที่เปลี่ยน -->
+                                                                <input type="hidden" name="gethousepump"
+                                                                    id="gethousepump">
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                            data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary">บันทึก</button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <!-- -----Fan--------Fan------------------------------Fan-----------------------------------------------------Fan------------------------------- -->
+                                    <div class="Showblock col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+                                        <div class="<%= (house_num.status_system == "0") ? "card3": "card33"%>">
+                                            <div class="card-icon">
+                                                <i class="image-fire"><img src="/public/images/fan.png" width="50px"
+                                                        height="50px"></i>
+                                            </div>
+
+                                            <div class="Data">
+                                                <p class="card-category" style="margin-top: 1  0px;">Fan</p>
+                                                <div class="list-group list-group-flush">
+
+                                                    <div class="list-group-item">
+
+                                                        <% if (house_num.status_system == 0) { %>
+                                                        <span class="on-off">OFF</span>
+                                                        <label class="switch ">
+                                                            <input type="checkbox" class="primary" name="onofffan"
+                                                                id="onofffan_<%= num+1 %>"
+                                                                onclick="switch_fan('<%= house_num.id %>',this.id)"
+                                                                <%= (house_num.status_system === "1") ? "disabled"  : ""  %>
+                                                                <%= (house_num.status_fan === "on" ) ? "checked" : ""  %>>
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                        <span class="on-off">ON</span>
+
+                                                        <div class="<%= (house_num.fanres == "on"  && house_num.status_fan == "on" && house_num.status_system == "0") ? "led-green" : "led-red1" %>" id="ledfan<%=house_num.topic %>"></div> 
+                                                        <!-- <div class="led-red1" id="ledfan<%=house_num.topic %>"></div> -->
+                                                        <!-- <p class="" id="fan<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+                                                        <% }else{%>
+                                                        <div class="<%= (house_num.fanres == "on" && house_num.status_system == "1") ? "led-green" : "led-red1" %>" id="ledfan<%=house_num.topic %>"></div> 
+                                                        <!-- <div class="led-red1" id="ledfan<%=house_num.topic %>"></div> -->
+                                                        <!-- <p class="" id="fan<%=house_num.topic %>">off</p> -->
+                                                        <p>สถานะการทำงาน</p>
+                                                        <%} %>
+
+                                                        <script
+                                                            src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+                                                        <script>
+                                                            function switch_fan(id, element_id) {
+                                                                console.log(id);
+                                                                $(document).ready(function () {
+                                                                    let switch_check = $("#" + element_id).is(":checked");
+                                                                    let status_switch = (switch_check === true) ? "on" : "off";
+
+                                                                    axios.post('http://' + res1[0] + ':3000/detailuser/switch_fan', {
+                                                                        id: id,
+                                                                        status: status_switch
+                                                                    })
+                                                                        .then(result => {
+                                                                            console.log(result);
+                                                                            if (result.data.message === "ok") {
+                                                                                // alert("success");
+                                                                                location.reload();
+                                                                            } else if (result.data.message === 'error') {
+                                                                                alert("Error")
+                                                                            }
+                                                                        })
+                                                                })
+                                                            }
+
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ปุ่ม เซ็ต Temp -->
+                                            <!--            <div class="btn-set">
+                                                <!-- <button class="btn btn-outline-primary" data-toggle="modal"
+                                                    data-target="#SetFan" type="button" onclick="myFunction('<%=house_num.id %>')"> Set Auto</button> -->
+                                        </div>
+
+                                        <!-- แสดงช่วง Temp -->
+                                        <!-- <div class="show-temp">
+                                                <span>เปิดเมื่ออุณหภูมิ : <%= house_num.fan %> </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="/users/getfan" method="POST">
+                                <!-- The Modal -->
+                                <div class="modal fade" id="SetFan">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">ตั้งค่าพัดลม</h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body row">
+                                                <div class="col-6 offset-3">
+                                                    เปิดเมื่ออุณหภูมิ <input type="text"
+                                                        class="form-control text-right number-only" width="50px"
+                                                        name="setfan" id="setfan" value=""
+                                                        placeholder="กรุณากรอกเฉพาะตัวเลข">
+                                                </div>
+
+
+                                                <input type="hidden" name="getidfan" id="getidfan">
+
+                                                <input type="hidden" name="gethousefan" id="gethousefan">
+
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    data-dismiss="modal">ยกเลิก</button>
+                                                <button type="submit" class="btn btn-outline-primary">บันทึก</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                        </div>
+                        </form>
+
+                        <!-- จบ ----- จบ ---- จบ ---- จบ ---- จบ ---- จบ ---- จบ ---- จบ ---- จบ ---- จบ ------------------------------------->
+
+                    </div>
+
+                </div>
+                <% }) %>
+            </div>
+          
+        </div>
+
+
+
+    </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>
+<!-- -------------จบ---------------จบ--------------------จบ--------------------จบ---------------------จบ------------------------ -->
+
+
+
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    /* 
+       . => element class 
+       # => element id
+
+    */
+    $(document).ready(function () {
+        $(".number-only").keydown(function (event) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                (event.keyCode == 65 && event.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (event.keyCode >= 35 && event.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            else {
+                // Ensure that it is a number and stop the keypress
+                if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                    event.preventDefault();
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    if (
+        sessionStorage.getItem("token") &&
+        sessionStorage.getItem("pri") != 1
+    ) {
+        window.location.href = 'http://' + res[0] + ':3000/834049beb19a82b97082598f16bd1057d94121ce942352bc9c3320f5d9ec8e16'
+    }
+    var socket = io();
+    // console.log(socket);
+                
+
+    function tampgraph(k) {
+        var dps = []; // dataPoints
+        var chart = new CanvasJS.Chart("chartContainerhome" + k, {
+            title: {
+                text: "กราฟแสดงอุณหภูมิ"
+            },
+            axisY: {
+                minimum:26,
+                maximum:46, //36
+                title: "temperature",
+                suffix: "°C"
+            },
+            axisX: {
+              
+                title: "Time (x10 S)",
+                // suffix: "°C"
+            },
+            data: [{
+                type: "line",
+                dataPoints: dps,
+          
+            }]
+
+        });
+    
+
+  
+    
+        var xVal = 0;
+        var yVal = 20;
+        var updateInterval = 1000;    //10000
+        var dataLength = 1000; // number of dataPoints visible at any point //50 //150 25 //120 20 // 100 16.67
+   //*********100  16 min //// 200 33.33 min
+        var updateChart = function (count) {
+
+             
+
+            count = count || 1;
+
+            for (var j = 0; j < count; j++) {
+
+                // console.log(j+data.TEMP)
+
+
+
+                socket.emit("message");
+
+                socket.on("home" + k, mes => {
+
+
+                    const data = JSON.parse(mes);
+                    const temp = data.TEMP;/*yVal - (yVal - temp)*/
+                    const hum = data.HUMIDI;
+                    // console.log(temp);
+                    // if(temp1 > 100){
+                    //     var temp = " "
+                    // }else{
+                    //     var temp = temp1;
+                    // }
+                    // console.log(temp);
+                    if (temp && hum < 100) {
+                        yVal = yVal - (yVal - temp); 
+                    }
+
+                })
+                
+                
+                
+                    dps.push({
+                        x: xVal,
+                        y: yVal
+                    });
+                    xVal++;
+                
+            }
+
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+
+
+
+            chart.render();
+
+
+        };
+    
+        updateChart(dataLength);
+ 
+        setInterval(() => {
+            updateChart()
+        }, updateInterval);
+     
+    }
+
+    /* กราฟความชื้น */
+    function humgraph(k) {
+        var dps = []; // dataPoints
+        var chart = new CanvasJS.Chart("humgraphhome" + k, {
+            title: {
+                text: "กราฟแสดงความชื้น"
+            },
+            axisY: {
+                minimum:40,
+                maximum:90,
+                title: "humidity",
+                suffix: "%"
+               // includeZero: false
+            },
+            axisX: {
+                title: "Time (x10 S)",
+                // suffix: "°C"
+            },
+            data: [{
+                type: "line",
+                dataPoints: dps,
+
+            }]
+
+ 
+
+        });
+
+        var xVal = 0;
+        var yVal = 40;
+        var updateInterval = 10000;
+        var dataLength = 100; // number of dataPoints visible at any point
+
+        var updateChart = function (count) {
+
+
+
+            count = count || 1;
+
+            for (var j = 0; j < count; j++) {
+
+                // console.log(j+data.TEMP)
+
+
+
+                socket.emit("message");
+
+                socket.on("home" + k, mes => {
+
+
+                    const data = JSON.parse(mes);
+                    const temp = data.TEMP;/*yVal - (yVal - temp)*/
+                    const hum = data.HUMIDI;
+                    // console.log(temp);
+                    // if(temp1 > 100){
+                    //     var temp = " "
+                    // }else{
+                    //     var temp = temp1;
+                    // }
+                    // console.log(temp);
+                    if (temp && hum < 100) {
+                        yVal = yVal - (yVal - hum);
+                    }
+
+
+                })
+                dps.push({
+                    x: xVal,
+                    y: yVal
+                });
+                xVal++;
+
+            }
+
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+
+
+
+            chart.render();
+
+
+        };
+
+        updateChart(dataLength);
+
+        setInterval(() => {
+            updateChart()
+        }, updateInterval);
+
+    }
+
+
+
+    window.onload = function () {
+
+
+        var housecareuser = document.getElementById('housecareuser').value
+        let numid = housecareuser.split(" ");
+        // console.log(numid[1]);
+
+        var stringValue = document.URL;
+        var res = stringValue.substr(7);
+        var res1 = res.split(":");
+
+        var pro1 = axios.post('http://' + res1[0] + ':3000/detailuser/usergethouse', {
+
+        }).then(result => {
+            // console.log(result.data.namehouse.length);
+            var idhouse = document.getElementById("getidhouse").value;/* ไว้เช้คโรงเรือน */
+            var numhouse = idhouse.split(" ");
+            var houseid = numhouse[1]; //ดูว่าอะไรขึ้นต้น เช้น โรงเรือน 2 ดึง 2 ไปใช้
+
+            // console.log(result.data.namehouse[0].house_quntity);
+            let housemax = result.data.namehouse[0].house_quntity;
+            let housespilt = housemax.split(" ");
+            // console.log(housespilt[1]);
+            let housemaxarr = housespilt[1];
+
+            for (let k = houseid; k <= housemaxarr; k++) {
+                tampgraph(k);
+                humgraph(k);
+            }
+
+        });
+    }
+
+
+    // function test(i){
+    //     socket.emit("message");//showdata
+    //     socket.on("home"+i , mes => {
+
+
+
+    //                     const data = JSON.parse(mes);
+    //                     const temp = data.TEMP;
+    //                     const hum = data.HUMIDI;
+
+    //                         console.log("temperature"+i);
+
+
+    //                     $("#temperature"+i).text(temp);
+    //                     $("#humidity1"+i).text(hum);
+
+    //                   });
+    // }
+    $(() => {
+
+        // array.lengthg
+
+        var stringValue = document.URL;
+        var res = stringValue.substr(7);
+        var res1 = res.split(":");
+
+        var pro1 = axios.post('http://' + res1[0] + ':3000/detailuser/usergethouse', {
+
+        }).then(result => {
+            var idhouse = document.getElementById("getidhouse").value;/* ไว้เช้คโรงเรือน */
+            var numhouse = idhouse.split(" ");
+            var houseid = numhouse[1]; //ดูว่าอะไรขึ้นต้น เช้น โรงเรือน 2 ดึง 2 ไปใช้
+
+            // console.log(result.data.namehouse[0].house_quntity);
+            let housemax = result.data.namehouse[0].house_quntity;
+            let housespilt = housemax.split(" ");
+            // console.log(housespilt[1]);
+            let housemaxarr = housespilt[1];
+
+
+            socket.emit("message");//showdata
+            for (let i = houseid; i <= housemaxarr; i++) {
+                // console.log('home0'+[i]);
+
+                socket.on("home" + i, mes => {
+
+                    /* socket.on("1", mes,function(callback, err){
+
+                    }) */
+
+                    const data = JSON.parse(mes);
+                    const temp = data.TEMP;
+                    const hum = data.HUMIDI;
+
+
+                    var autoheater = data.HEATERRES;
+                    var autopump = data.PUMPRES;
+                    var autofan = data.FANRES;
+                    // console.log(data);
+                    // for(var k = 1 ; k<=10 ;k++){
+                        $("#temperaturehome"+i).text(temp);
+                    $("#humidityhome"+i).text(hum);
+
+                    $("#heaterhome"+i).text(autoheater);
+                    if (autoheater == "on") {
+                        $("#ledheaterhome"+i).removeClass("led-red1");
+                        $("#ledheaterhome"+i)/* .last() */.addClass("led-green");
+                        $("#onoffheater_"+i).prop('checked', true);
+
+                    } else if (autoheater == "off") {
+                        $("#ledheaterhome"+i).removeClass("led-green");
+                        $("#ledheaterhome"+i)/* .last() */.addClass("led-red1");
+                        $("#onoffheater_"+i).prop('checked', false);
+                    }
+                    /* pump */
+                    $("#pumphome"+i).text(autopump);
+                    if (autopump == "on") {
+                        $("#ledpumphome"+i).removeClass("led-red1");
+                        $("#ledpumphome"+i)/* .last() */.addClass("led-green");
+                        $("#onoffpump_"+i).prop('checked', true);
+
+                    } else if (autopump == "off") {
+                        $("#ledpumphome"+i).removeClass("led-green");
+                        $("#ledpumphome"+i)/* .last() */.addClass("led-red1");
+                        $("#onoffpump_"+i).prop('checked', false);
+                    }
+
+                    /* fan */
+                    $("#fanhome"+i).text(autofan);
+                    if (autofan == "on") {
+                        $("#ledfanhome"+i).removeClass("led-red1");
+                        $("#ledfanhome"+i)/* .last() */.addClass("led-green");
+                        $("#onofffan_"+i).prop('checked', true);
+
+                    } else if (autofan == "off") {
+                        $("#ledfanhome"+i).removeClass("led-green");
+                        $("#ledfanhome"+i)/* .last() */.addClass("led-red1");
+                        $("#onofffan_"+i).prop('checked', false);
+                    }
+                 
+
+                    /* */
+                    /*   led-red1 */
+
+
+
+                    //   console.log(k);
+                    // $(".test").class(k);
+                    // $(".test").text(onheater);
+
+                    // $("#chartContainer1").text(temp);
+                    // }
+
+                });
+
+            }
+        });
+
+
+    });
+
+                // socket.on("home03", mes => {
+                //     const data = JSON.parse(mes);
+                //     const temp = data.TEMP;
+                //     const hum = data.HUMIDI;
+                //     // console.log(data);
+                //     $("#temperature3").text(temp);
+                //     $("#humidity3").text(hum);
+                //     $("#messages").text(mes);
+                //   });
+
+                // }); 
+</script>
+
+<script>
+    var data = [];
+    function myFunction(user) {
+        //res1 ประกาศตรง heater
+        var pro3 = axios.post('http://' + res1[0] + ':3000/detailuser/getid', {
+            id: user
+        }).then(result => {
+            console.log(result);
+
+            document.getElementById('getidtemp').value = result.data.id;
+            document.getElementById('gethousetemp').value = result.data.house.house_quntity;
+
+
+            document.getElementById('getidpump').value = result.data.id;
+            document.getElementById('gethousepump').value = result.data.house.house_quntity;
+
+
+
+            document.getElementById('getidfan').value = result.data.id;
+            document.getElementById('gethousefan').value = result.data.house.house_quntity;
+
+            console.log(result.data.id);
+            console.log(result.data.house.house_quntity);
+        })
+    }
+
+</script>

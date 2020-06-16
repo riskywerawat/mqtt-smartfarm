@@ -1,0 +1,898 @@
+/*--- 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+
+.wrapper{
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+
+.sidebar{
+  overflow: auto;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  padding: 30px 0px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h2{
+  color: #130f40;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar ul li{
+  display: block;
+  text-decoration: none;
+
+  padding: 15px;
+  border-bottom: 1px solid #bdb8d7;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}    
+
+.sidebar ul li a{
+  color: #535c68;
+  display: block;
+ 
+
+}
+
+.sidebar ul li a .fas{
+  width: 25px;
+}
+
+.sidebar ul .nonactive:hover{
+  border-radius: 5px;
+  background-color: #8ed8f834;
+}
+    
+.sidebar ul li:hover a{
+  color: rgb(37, 35, 35);
+}
+ 
+.sidebar .social_media{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.sidebar .social_media a{
+  display: block;
+  width: 40px;
+  background: #594f8d;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #bdb8d7;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+
+.nav, .nav-item{
+  width: 100%;
+}
+.active{
+  border-radius: 5px;
+  background-color: #686de0;
+ 
+}
+.sidebar ul  .active a{
+  
+  color: #fff;
+} */
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  overflow: auto;
+  width: 220px;
+  height: 100%;
+  background: #fff;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
+    0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar a {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+  color: #535c68;
+
+  border-bottom: 1px solid #bdb8d7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar a .fas {
+  width: 25px;
+}
+.sidebar a.active {
+  color: #fff;
+  border-radius: 5px;
+  background-color: #686de0;
+}
+
+.sidebar a:hover:not(.active) {
+  color: #535c68;
+  border-radius: 5px;
+  background-color: #8ed8f834;
+}
+
+div.main_content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* ----------------------------------------------------------------------------------------- */
+
+.sidebar {
+  overflow: hidden;
+}
+
+.sidebar a {
+  display: block;
+
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.sidebar .icon {
+  display: none;
+}
+.InputTemp {
+  text-align: center;
+}
+
+/* --------ขนาดหน้า--- -ขนาดหน้า-----ขนาดหน้า---ขนาดหน้า---ขนาดหน้า---ขนาดหน้า---ขนาดหน้า---ขนาดหน้า---------------------------------------------------------------------------------------- */
+@media screen and (max-width: 1385px) {
+  .on-off {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 1495px) {
+  .on-off-setting {
+    font-size: 12px;
+  }
+}
+/* @media screen and (max-width: 1370px) {
+  .on-off-setting {
+    font-size: 10px;
+  }
+  .show-temp{
+    font-size: 12px;
+  }
+} */
+
+@media screen and (max-width: 1200px) {
+  .on-off {
+    font-size: 16px;
+  }
+
+  .on-off-setting {
+    font-size: 16px;
+  }
+  .show-temp {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1375px) {
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {
+    float: left;
+  }
+
+  div.main_content {
+    margin-left: 0;
+  }
+  .col-5 {
+    padding-left: 0px;
+  }
+}
+
+@media screen and (max-width: 855px) {
+  .sidebar {
+    display: block;
+  }
+  .sidebar a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .sidebar a:not(:first-child) {
+    display: none;
+  }
+  .sidebar a.icon {
+    float: right;
+    display: block;
+    font-size: 20px;
+
+    border-radius: 5px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .sidebar.responsive {
+    position: relative;
+  }
+  .sidebar.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .sidebar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+ .Chart1 {
+  flex-basis:100%;  
+  }
+  .Chart2 {
+    flex-basis:100%;  
+    }
+  
+
+}
+
+@media screen and (max-width: 575px) {
+  .modal-body .col-sm-8 select {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 545px) {
+  .btn-delete {
+    font-size: 12px;
+  }
+  /* .Use-overflow {
+   
+    
+    margin-bottom: 12px;
+    overflow: auto;
+  } */
+}
+
+@media screen and (max-width: 476px) {
+  .container-fluid .row .col-4 button a {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .panel-body {
+    font-size: 12px;
+  }
+  .homefornt {
+    font-size: 12px;
+  }
+  .Data p {
+    font-size: 16px;
+  }
+  .Data1 p {
+    font-size: 16px;
+  }
+  .show-temp {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+/* ------------------------------------------------------------------------------------------ */
+
+/* --------------ข้อมูลส่วนกลาง---ข้อมูลส่วนกลาง----ข้อมูลส่วนกลาง----ข้อมูลส่วนกลาง----ข้อมูลส่วนกลาง----ข้อมูลส่วนกลาง- --ข้อมูลส่วนกลาง-*--ข้อมูลส่วนกลาง-------------------------------*/
+/* .main_content{
+  width: 100%;
+  margin-left: 260px;
+  margin-top: 30px;
+ 
+}
+
+.main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.main_content .info{
+  margin: 20px;
+  color: #717171;
+  line-height: 25px;
+}
+
+.main_content .info div{
+  margin-bottom: 20px;
+} */
+
+.panel-group {
+  width: auto;
+  margin-top: 30px;
+}
+.panel-heading {
+  font-size: 170%;
+  color: white;
+  background: rgb(83, 150, 238);
+  border-radius: 5px;
+  padding: 10px;
+  /* ๒border: 2px solid rgb(77, 67, 56); */
+}
+.panel-body {
+  padding: 5px;
+  background: #fff;
+  border: 2px solid rgb(248, 246, 245);
+  border-radius: 5px;
+  border-top: none;
+  text-align: center;
+}
+
+/* สวิตเท่านั้น--------------------------------------------------------------------------------- */
+
+/*สวิต Manual-Auto----------------------------------------------------------- */
+
+/* The slider */
+.slider2 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f6d743;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider2:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* ปุ่ม Manual-Auto */
+input.Manual-Auto:checked + .slider2 {
+  background-color: rgb(109, 209, 89);
+}
+
+input:checked + .slider2:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded slider2s */
+.slider2.round {
+  border-radius: 50px;
+}
+
+.slider2.round:before {
+  border-radius: 50%;
+}
+/*  จบสวิต Manual-Auto----------------------------------------------------------- */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+/* กันร้น heater  */
+.edit {
+  position: relative;
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+}
+
+/* Hide default HTML checkbox */
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* ปุ่ม ON-OFF */
+input.primary:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 50px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.list-group-item {
+  text-align: center;
+}
+.on-off {
+  margin-top: 40px;
+}
+.on-off-setting {
+  margin-top: 40px;
+}
+
+/* .Data1{
+  padding-bottom: 70px;
+} */
+.Data1 h2 {
+  font-size: 50px;
+}
+/* สวิตเท่านั้น--------------------------------------------------------------------------------- */
+
+/* สวิต set Auto */
+.btn-set {
+  padding-top: 2px;
+  text-align: center;
+}
+
+.btn-set button {
+  border-radius: 40px;
+}
+
+.show-temp {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------------------------------------- */
+/* Custom Checkboxes ---------------Custom Checkboxes-----------------------Custom Checkboxes*/
+.chooseHome {
+  font-size: 18px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 10px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* ---USER----USER-----------USER----------------------------------------------------------------- */
+
+/* .container-fluid .row .col-4 button a{
+  font-size: 25px;
+} */
+.ButtonEgg button {
+  padding: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(
+    to right,
+    rgba(245, 236, 236, 0),
+    rgb(243, 245, 214)
+  );
+  box-shadow: 8px 8px 5px grey;
+}
+/* pump */
+.card {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 21px; /*34*/
+}
+.card p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+
+.card11 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 53px; /*34*/
+}
+.card11 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+
+.card-icon {
+  text-align: center;
+  padding: 10px;
+}
+/* heater เงื่อนไข manual*/
+.card2 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 21px; /* 90 */ /* 22 */
+}
+
+.card2 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+/* heater เงื่อนไข auto*/
+.card22 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 53px; /* 90 */
+}
+
+.card22 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+/* fan */
+.card3 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 21px;
+}
+.card3 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+.card33 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 20px grey;
+  padding-bottom: 53px;
+}
+.card33 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+
+.card1 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  height: 310px;
+  box-shadow: 4px 4px 20px grey;
+}
+.card1 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+
+.card0 {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 20px;
+  height: 310px;
+  box-shadow: 4px 4px 20px grey;
+}
+.card0 p,
+h2 {
+  text-align: center;
+  margin: 10px;
+}
+.card i > img {
+  width: 100px;
+  height: 100px;
+}
+.card2 i > img {
+  width: 100px;
+  height: 100px;
+}
+.card3 i > img {
+  width: 100px;
+  height: 100px;
+}
+
+.card11 i > img {
+  width: 100px;
+  height: 100px;
+}
+.card22 i > img {
+  width: 100px;
+  height: 100px;
+}
+.card33 i > img {
+  width: 100px;
+  height: 100px;
+}
+
+/* ----LED--------LED-------------LED-------------------------------------------------------------------------------------------------------------- */
+/* สถานะ */
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+  float: left;
+}
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+  -webkit-animation: blinkGreen 1s infinite;
+  -moz-animation: blinkGreen 1s infinite;
+  -ms-animation: blinkGreen 1s infinite;
+  -o-animation: blinkGreen 1s infinite;
+  animation: blinkGreen 1s infinite;
+}
+@-webkit-keyframes blinkGreen {
+  from { background-color: #ABFF00; }
+  50% { background-color: #006400; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ABFF00 0 2px 0; }
+  to { background-color: #ABFF00; }
+}
+@-moz-keyframes blinkGreen {
+  from { background-color: #ABFF00; }
+  50% { background-color: #006400; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ABFF00 0 2px 0; }
+  to { background-color: #ABFF00; }
+}
+@-ms-keyframes blinkGreen {
+  from { background-color: #ABFF00; }
+  50% { background-color: #006400; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ABFF00 0 2px 0; }
+  to { background-color: #ABFF00; }
+}
+@-o-keyframes blinkGreen {
+  from { background-color: #ABFF00; }
+  50% { background-color: #006400; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ABFF00 0 2px 0; }
+  to { background-color: #ABFF00; }
+}
+@keyframes blinkGreen {
+  from { background-color: #ABFF00; }
+  50% { background-color: #006400; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #ABFF00 0 2px 0; }
+  to { background-color: #ABFF00; }
+}
+/* ไฟแดงกระพริบ */
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #f00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+    rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+}
+/* ไฟแดง ไม่กระพริบ */
+.led-red1 {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: rgb(129, 3, 3);
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+    rgba(255, 0, 0, 0.5) 0 2px 12px;
+}
+
+@-webkit-keyframes blinkRed {
+  from {
+    background-color: #f00;
+  }
+  50% {
+    background-color: #a00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+      rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #f00;
+  }
+}
+@-moz-keyframes blinkRed {
+  from {
+    background-color: #f00;
+  }
+  50% {
+    background-color: #a00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+      rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #f00;
+  }
+}
+@-ms-keyframes blinkRed {
+  from {
+    background-color: #f00;
+  }
+  50% {
+    background-color: #a00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+      rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #f00;
+  }
+}
+@-o-keyframes blinkRed {
+  from {
+    background-color: #f00;
+  }
+  50% {
+    background-color: #a00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+      rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #f00;
+  }
+}
+@keyframes blinkRed {
+  from {
+    background-color: #f00;
+  }
+  50% {
+    background-color: #a00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
+      rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #f00;
+  }
+}
+/* ----LED--------LED-------------LED-------------------------------------------------------------------------------------------------------------- */
+
+/* กราฟ */
+
+.Chart1{
+  height: 370px; 
+  width:50%;
+ 
+}
+.Chart2{
+  height: 370px; 
+  width:50%;
+  
+}

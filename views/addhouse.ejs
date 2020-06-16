@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/public/images/android-icon-96x96.png">
+  <title>ระบบควบคุมฟาร์มไก่</title>
+  <!-- เพิ่มเติม-------------------------------- -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/public/css/style2.css">
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <script src="/public/js/script.js"></script>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="sidebar" id="mysidebar">
+      <h2><%= user %></h2>
+      <a class="nav-link " href="/index"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a class="nav-link " href="/index/adduser"><i class="fas fa-user"></i>เพิ่มผู้ใช้งาน</a>
+      <a class="nav-link " href="/index/member"><i class="fas fa-id-badge"></i>ชื่อผู้ใช้งาน</a>
+      <a class="nav-link active" href="/index/addhouse"><i class="fas fa-home"></i>โรงเรือนในระบบ</a>
+      <a class="nav-link " href="/logout" onclick="sessionStorage.clear()"><i
+          class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunctionTab()"><i class="fa fa-bars"></i> </a>
+
+
+    </div>
+
+
+    <div class="main_content">
+      <div class="container-fluid">
+
+        <h2>โรงเรือนในระบบ</h2>
+
+        <!-- เพิ่มโรงเรือน----------------------------------------------------------------------------------------------------------------------------- -->
+
+        <div class="row">
+          <div class="col-md-10 offset-1">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">เพิ่มโรงเรือน</div>
+
+                <div class="panel-body">
+
+                  <form action="/users/addhouse" method="post">
+                    <div class="row">
+                      <!-- ชื่อโรงเรือน -->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control " name="namehouseadd" id="namehouseadd" placeholder="ชื่อโรงเรือน" required>
+                        </div>
+                      </div>
+                      <!-- หมายเหตุ -->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="" class="form-control" name="noteadd" id="noteadd" placeholder="หมายเหตุ" >
+                        </div>
+                      </div>
+                      <!-- topic -->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="" class="form-control" name="topic" id="topic" placeholder="กรุณาเลือก Topic เช่น โรงเรือน 1 คือ home1" required>
+                        </div>
+                      </div>
+                      <!--ไม่เกี่ยวใช่มั้ย   <input type="hidden" name="priority_add" id="priority_add" value="2"> -->
+                    </div>
+
+
+
+                    <div class="col-md-12" style="text-align:center;">
+                      <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#exampleModal">ตกลง</button>
+                    </div>
+
+                    <!-- -----------------Modal ------------------------------------------------------------------------------------>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มโรงเรือน</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">คุณต้องการที่จะเพิ่มโรงเรือนหรือไม่</div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-outline-primary"> ยืนยัน</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- -----------------Modal ------------------------------------------------------------------------------------>
+                  </form>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <!-- เพิ่มโรงเรือน----------------------------------------------------------------------------------------------------------------------------- -->
+
+        <!-- จำนวนโรงเรือน----------------------------------------------------------------------------------------------------------------------------- -->
+        <div class="row">
+          <div class="col-md-10 offset-1">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">จำนวนโรงเรือนในระบบ</div>
+
+                <div class="panel-body">
+
+                  <form action="/users/deletehouse" method="post">
+
+                    <table class="table table-hover">
+                      <thead>
+                        <th>ลำดับ</th>
+                        <th>โรงเรือนในระบบ</th>
+                        <th>หมายเหตุ</th>
+                        <th></th>
+                      </thead>
+
+                      <tbody>
+                        <% housecare.forEach(function(datahouse,num) { %>
+                        <tr>
+                          <td><%= num+1 %></td>
+                          <td><%= datahouse.house_quntity%> </td>
+                          <% if (datahouse.note) { %>
+                            <td><%= datahouse.note %> </td>
+                          <% }else{%>
+                            <td>-</td>
+                          <% } %> 
+                       
+                          <td>
+                            <button type="button" class="btn btn-outline-danger " name="" id="" data-toggle="modal"
+                              data-target="#exampleModal2" onclick="myFunction('<%= datahouse.id %>')" value="">ลบโรงเรือน</button>
+                              <input type="hidden" name="getidhouse" id="getidhouse">
+                              <input type="hidden" name='loghouse' id='loghouse'>
+                              
+
+                              <script src="/public/axios-0.19.2/dist/axios.min.js"></script>
+                              <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+                              <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+                              
+
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <%  }) %>
+                    </table>
+
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">ลบโรงเรือน</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">คุณต้องการที่จะลบโรงเรือนหรือไม่</div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-outline-primary"> ยืนยัน</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- -----------------Modal ------------------------------------------------------------------------------------>
+
+
+                  </form>
+
+                  <script>
+
+                    function  myFunction(id) {
+                              console.log(document.URL);
+                              var stringValue = document.URL;
+                              var res = stringValue.substr(7);
+                              var res1 = res.split(":");
+                              console.log(res1[0]);
+                                var pro1 = axios.post('http://'+res1[0]+':3000/detailuser/gethouseById', {
+                              id: id
+                            }).then(result=>{
+                            console.log(result.data);
+                            console.log(result.data.datahouse[0].house_quntity);
+                          document.getElementById('getidhouse').value = result.data.id;
+                          // document.getElementById('loghouse').value = result.data.datahouse[0].house_quntity;
+                            })
+                      }
+                    </script>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- จำนวนโรงเรือน----------------------------------------------------------------------------------------------------------------------------- -->
+
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

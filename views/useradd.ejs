@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png"
+      href="/public/images/android-icon-96x96.png">
+    <title>ระบบควบคุมฟาร์มไก่</title>
+    <!-- เพิ่มเติม-------------------------------- -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/style2.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="/public/js/script.js"></script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="sidebar" id="mysidebar">
+        <h2><%= user %></h2>
+          <a class="nav-link" href="/index"><i class="fas fa-tachometer-alt"></i>
+            Dashboard</a>
+          <a class="nav-link active" href="/index/adduser"><i class="fas
+              fa-user"></i>เพิ่มผู้ใช้งาน</a>
+          <a class="nav-link" href="/index/member"><i class="fas fa-id-badge"></i>ชื่อผู้ใช้งาน</a>
+          <a class="nav-link" href="/index/addhouse"><i class="fas fa-home"></i>โรงเรือนในระบบ</a>
+          <a class="nav-link" href="/logout" onclick="sessionStorage.clear()"><i
+              class="fas fa-sign-out-alt"></i>ออกจากระบบ</a>
+          <a href="javascript:void(0);" class="icon" onclick="myFunctionTab()"><i
+              class="fa fa-bars"></i> </a>
+
+
+        </div>
+
+
+        <div class="main_content">
+          <div class="container-fluid">
+
+            <h2>เพิ่มผู้ใช้งาน</h2>
+
+            <!-- ตารางเพิ่ม---------------------------------- -->
+            <div class="row">
+              <div class="col-md-8 offset-2">
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">กรอกข้อมูลผู้ใช้งาน</div>
+
+                    <div class="panel-body">
+
+                      <form action="/users/adduser" method="post">
+                        <div class="row">
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <input type="text" class="form-control"
+                                name="user_add"
+                                id="user_add" placeholder="Username" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <input type="password" class="form-control"
+                                name="pass_add" id="pass_add"
+                                placeholder="Password" required>
+                            </div>
+                          </div>
+                          <input type="hidden" name="priority_add"
+                            id="priority_add" value="2">
+                        </div>
+                        <!-- ให้สิทธิ------------------------------------------------------------------------------ -->
+                        <h4 class="chooseHome text-left">สิทธิการดูแลโรงเรือน</h4>
+                        <% houseadduser.forEach((houseadduser,num)=>{ %>
+                        
+                          <!-- col-lg-4 col-md-4 col-sm-6 col-12 -->
+                          <div class="col-sm-5" style="text-align: left;">
+                            <label class="container">
+                              <input type="checkbox" id="houseadduser<%=num %>"
+                                name="houseadduser[]" value="<%=houseadduser.id%>" ><%=houseadduser.house_quntity%>
+                                <span class="checkmark"></span>
+                              </label>
+                          
+
+
+                            </div>
+                            <% }) %>
+                           <% dataacc.forEach((data,num)=>{ %>
+                                  <input type="hidden" name="idacc[]" id="idacc" value="<%=data.id+1%>">
+                           <% })  %> 
+                              <!-- ให้สิทธิ------------------------------------------------------------------------------ -->
+                              <div class="col-md-12" style="text-align:center;">
+                                <button type="button" class="btn
+                                  btn-outline-primary" data-toggle="modal"
+                                  data-target="#exampleModal">ตกลง</button>
+                              </div>
+
+                              <!-- -----------------Modal ------------------------------------------------------------------------------------>
+                              <div class="modal fade" id="exampleModal"
+                                tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title"
+                                        id="exampleModalLabel">เพิ่มผู้ใช้งาน</h5>
+                                      <button type="button" class="close"
+                                        data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">คุณต้องการที่จะเพิ่มผู้ใช้งานหรือไม่</div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn
+                                        btn-outline-danger"
+                                        data-dismiss="modal">ยกเลิก</button>
+                                      <button type="submit" class="btn
+                                        btn-outline-primary"> ยืนยัน</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- -----------------Modal ------------------------------------------------------------------------------------>
+                            </form>
+
+                          </div>
+
+
+
+
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </body>
+        </html>
